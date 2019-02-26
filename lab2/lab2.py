@@ -60,3 +60,35 @@ python examples/display_data.py --task personachat --datatype train
 # Compare a chit-chat application to something like booking a movie ticket-
 # would you want to use generative, retrieval, or something else to accomplish
 # that task?
+
+# RETRIEVAL
+
+# Running a Retrieval Model
+python examples/train_model.py -m transformer_ranker -t convai2 -dt train --batchsize 16 --learning-rate 8e-05 -veps 0.25 --model-file persona_chat_retrieval_model -vmt accuracy --batch-eval False
+
+# Let's unpack what's going on here
+
+# -m means which model we're going to use. "transformer" means the transformer architecture
+# "ranker" refers to "ranking loss," or how retrieval models are trained.
+# Recall they are trained to rank the true response higher over a set of potential
+# responses from the dataset (in ParlAI, these are called the "label candidates")
+# When it's time to write a dialogue response, the retrieval model returns the response
+# that is ranked the highest
+
+# -t refers to the task. Here, we are training on PersonaChat data
+
+# -dt refers to the data split. We want to train our model, so we are using the training setself.
+
+# -veps refers to how often we should evaluate during training, our performance on validation
+# recall this is important because models, particularly neural ones, have the capacity
+# to memorize the training dataset. So it's important to check how the model is doing on the
+# validation set.
+
+# --model-file refers to when your model is saved, what should the filename be
+
+# -vmt refers to the metric which we'll use to decide which model is the best. We'll cover this in
+# the next section
+
+# --batch-eval
+
+TODO
